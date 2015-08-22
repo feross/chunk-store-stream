@@ -25,11 +25,12 @@ npm install chunk-store-stream
 var ChunkStoreStream = require('chunk-store-stream')
 var FSChunkStore = require('fs-chunk-store') // any chunk store will work
 
-var store = new FSChunkStore(3)
+var chunkLength = 3
+var store = new FSChunkStore(chunkLength)
 
-/ ... put some data in the store
+// ... put some data in the store
 
-var stream = ChunkStoreStream(store, 3).createReadStream({ length: 6 })
+var stream = new ChunkStoreStream.read(store, chunkLength, { length: 6 })
 stream.pipe(process.stdout)
 ```
 
@@ -40,9 +41,10 @@ var ChunkStoreStream = require('chunk-store-stream')
 var FSChunkStore = require('fs-chunk-store') // any chunk store will work
 var fs = require('fs')
 
-var store = new FSChunkStore(3)
+var chunkLength = 3
+var store = new FSChunkStore(chunkLength)
 
-var stream = ChunkStoreStream(store, 3).createWriteStream()
+var stream = new ChunkStoreStream.write(store, chunkLength)
 fs.createReadStream('file.txt').pipe(stream)
 ```
 
