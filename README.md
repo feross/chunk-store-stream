@@ -7,9 +7,9 @@
 [downloads-image]: https://img.shields.io/npm/dm/chunk-store-stream.svg?style=flat
 [downloads-url]: https://npmjs.org/package/chunk-store-stream
 
-#### Convert an [abstract-chunk-store](https://github.com/mafintosh/abstract-chunk-store) compliant store into a readable or writable stream
+#### Convert an [abstract-chunk-store](https://github.com/mafintosh/abstract-chunk-store) store into a readable or writable stream
 
-Read data out of a chunk store, or write data into a chunk store using streams.
+Read/write data from/to a chunk store, with streams.
 
 ## Install
 
