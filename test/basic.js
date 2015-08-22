@@ -47,7 +47,7 @@ function runTests (name, Store) {
       store.put(1, new Buffer('def'), function (err) {
         t.error(err)
 
-        var stream = ChunkStoreStream(store, 3).createReadStream({ length: 6 })
+        var stream = ChunkStoreStream.read(store, 3, { length: 6 })
         stream.on('error', function (err) { t.fail(err) })
 
         stream.pipe(concat(function (buf) {
@@ -61,7 +61,7 @@ function runTests (name, Store) {
   test(name + ': writable stream', function (t) {
     var store = new Store(3)
 
-    var stream = ChunkStoreStream(store, 3).createWriteStream()
+    var stream = ChunkStoreStream.write(store, 3)
     stream.on('error', function (err) { t.fail(err) })
 
     str('abcdef')
