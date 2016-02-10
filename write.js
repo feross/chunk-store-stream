@@ -20,7 +20,7 @@ function ChunkStoreWriteStream (store, chunkLength, opts) {
   chunkLength = Number(chunkLength)
   if (!chunkLength) throw new Error('Second argument must be a chunk length')
 
-  self._blockstream = new BlockStream(chunkLength, { zeroPadding: false })
+  self._blockstream = new BlockStream(chunkLength, { zeroPadding: true })
 
   self._blockstream
     .on('data', onData)
