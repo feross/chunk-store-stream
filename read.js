@@ -1,7 +1,7 @@
 module.exports = ChunkStoreReadStream
 
 var inherits = require('inherits')
-var stream = require('stream')
+var stream = require('readable-stream')
 
 inherits(ChunkStoreReadStream, stream.Readable)
 

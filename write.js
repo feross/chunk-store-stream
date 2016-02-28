@@ -2,7 +2,7 @@ module.exports = ChunkStoreWriteStream
 
 var BlockStream = require('block-stream2')
 var inherits = require('inherits')
-var stream = require('stream')
+var stream = require('readable-stream')
 
 inherits(ChunkStoreWriteStream, stream.Writable)
 
