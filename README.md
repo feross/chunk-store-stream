@@ -9,6 +9,8 @@
 
 #### Convert an [abstract-chunk-store](https://github.com/mafintosh/abstract-chunk-store) store into a readable or writable stream
 
+[![abstract chunk store](https://cdn.rawgit.com/mafintosh/abstract-chunk-store/master/badge.svg)](https://github.com/mafintosh/abstract-chunk-store)
+
 Read/write data from/to a chunk store, with streams.
 
 ## Install
