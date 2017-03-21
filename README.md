@@ -1,11 +1,13 @@
-# chunk-store-stream [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url]
+# chunk-store-stream [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
 
-[travis-image]: https://img.shields.io/travis/feross/chunk-store-stream.svg?style=flat
+[travis-image]: https://img.shields.io/travis/feross/chunk-store-stream/master.svg
 [travis-url]: https://travis-ci.org/feross/chunk-store-stream
-[npm-image]: https://img.shields.io/npm/v/chunk-store-stream.svg?style=flat
+[npm-image]: https://img.shields.io/npm/v/chunk-store-stream.svg
 [npm-url]: https://npmjs.org/package/chunk-store-stream
-[downloads-image]: https://img.shields.io/npm/dm/chunk-store-stream.svg?style=flat
+[downloads-image]: https://img.shields.io/npm/dm/chunk-store-stream.svg
 [downloads-url]: https://npmjs.org/package/chunk-store-stream
+[standard-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
+[standard-url]: https://standardjs.com
 
 #### Convert an [abstract-chunk-store](https://github.com/mafintosh/abstract-chunk-store) store into a readable or writable stream
 
