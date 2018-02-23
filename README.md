@@ -1,5 +1,7 @@
 # chunk-store-stream [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/feross/chunk-store-stream.svg)](https://greenkeeper.io/)
+
 [travis-image]: https://img.shields.io/travis/feross/chunk-store-stream/master.svg
 [travis-url]: https://travis-ci.org/feross/chunk-store-stream
 [npm-image]: https://img.shields.io/npm/v/chunk-store-stream.svg
