@@ -1,6 +1,6 @@
 var CacheChunkStore = require('cache-chunk-store')
 var ChunkStoreStream = require('../')
-var concat = require('concat-stream')
+var concat = require('simple-concat')
 var FSChunkStore = require('fs-chunk-store')
 var ImmediateChunkStore = require('immediate-chunk-store')
 var MemoryChunkStore = require('memory-chunk-store')
@@ -50,10 +50,11 @@ function runTests (name, Store) {
         var stream = ChunkStoreStream.read(store, 3, { length: 6 })
         stream.on('error', function (err) { t.fail(err) })
 
-        stream.pipe(concat(function (buf) {
+        concat(stream, function (err, buf) {
+          t.error(err)
           t.deepEqual(buf, new Buffer('abcdef'))
           t.end()
-        }))
+        })
       })
     })
   })
