@@ -79,4 +79,29 @@ function runTests (name, Store) {
         })
       })
   })
+
+  test(name + ': unaligned writable stream', function (t) {
+    var store = new Store(3)
+
+    var stream = ChunkStoreStream.write(store, 3)
+    stream.on('error', function (err) { t.fail(err) })
+
+    str('abcdefg')
+      .pipe(stream)
+      .on('finish', function () {
+        store.get(0, function (err, buf) {
+          t.error(err)
+          t.deepEqual(buf, new Buffer('abc'))
+          store.get(1, function (err, buf) {
+            t.error(err)
+            t.deepEqual(buf, new Buffer('def'))
+            store.get(2, function (err, buf) {
+              t.error(err)
+              t.deepEqual(buf, new Buffer('g\0\0'))
+              t.end()
+            })
+          })
+        })
+      })
+  })
 }
