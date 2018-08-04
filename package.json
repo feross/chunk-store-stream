@@ -5,14 +5,13 @@
   "author": {
     "name": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
-    "url": "http://feross.org/"
+    "url": "https://feross.org/"
   },
   "bugs": {
     "url": "https://github.com/feross/chunk-store-stream/issues"
   },
   "dependencies": {
     "block-stream2": "^1.0.0",
-    "inherits": "^2.0.1",
     "readable-stream": "^2.0.5"
   },
   "devDependencies": {

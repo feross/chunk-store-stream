@@ -1,11 +1,11 @@
-var CacheChunkStore = require('cache-chunk-store')
-var concat = require('simple-concat')
-var FSChunkStore = require('fs-chunk-store')
-var ImmediateChunkStore = require('immediate-chunk-store')
-var MemoryChunkStore = require('memory-chunk-store')
-var str = require('string-to-stream')
-var test = require('tape')
-var { ChunkStoreReadStream, ChunkStoreWriteStream } = require('../')
+const CacheChunkStore = require('cache-chunk-store')
+const concat = require('simple-concat')
+const FSChunkStore = require('fs-chunk-store')
+const ImmediateChunkStore = require('immediate-chunk-store')
+const MemoryChunkStore = require('memory-chunk-store')
+const str = require('string-to-stream')
+const test = require('tape')
+const { ChunkStoreReadStream, ChunkStoreWriteStream } = require('../')
 
 runTests('FS', function (chunkLength) {
   return new FSChunkStore(chunkLength)
@@ -40,17 +40,17 @@ runTests('Cache(Immediate(Memory)', function (chunkLength) {
 })
 
 function runTests (name, Store) {
-  test(name + ': readable stream', function (t) {
-    var store = new Store(3)
-    store.put(0, Buffer.from('abc'), function (err) {
+  test(`${name}: readable stream`, t => {
+    const store = new Store(3)
+    store.put(0, Buffer.from('abc'), err => {
       t.error(err)
-      store.put(1, Buffer.from('def'), function (err) {
+      store.put(1, Buffer.from('def'), err => {
         t.error(err)
 
-        var stream = new ChunkStoreReadStream(store, 3, { length: 6 })
-        stream.on('error', function (err) { t.fail(err) })
+        const stream = new ChunkStoreReadStream(store, 3, { length: 6 })
+        stream.on('error', err => { t.fail(err) })
 
-        concat(stream, function (err, buf) {
+        concat(stream, (err, buf) => {
           t.error(err)
           t.deepEqual(buf, Buffer.from('abcdef'))
           t.end()
@@ -59,19 +59,19 @@ function runTests (name, Store) {
     })
   })
 
-  test(name + ': writable stream', function (t) {
-    var store = new Store(3)
+  test(`${name}: writable stream`, t => {
+    const store = new Store(3)
 
-    var stream = new ChunkStoreWriteStream(store, 3)
-    stream.on('error', function (err) { t.fail(err) })
+    const stream = new ChunkStoreWriteStream(store, 3)
+    stream.on('error', err => { t.fail(err) })
 
     str('abcdef')
       .pipe(stream)
-      .on('finish', function () {
-        store.get(0, function (err, buf) {
+      .on('finish', () => {
+        store.get(0, (err, buf) => {
           t.error(err)
           t.deepEqual(buf, Buffer.from('abc'))
-          store.get(1, function (err, buf) {
+          store.get(1, (err, buf) => {
             t.error(err)
             t.deepEqual(buf, Buffer.from('def'))
             t.end()
