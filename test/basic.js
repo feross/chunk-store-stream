@@ -1,11 +1,11 @@
 var CacheChunkStore = require('cache-chunk-store')
-var ChunkStoreStream = require('../')
 var concat = require('simple-concat')
 var FSChunkStore = require('fs-chunk-store')
 var ImmediateChunkStore = require('immediate-chunk-store')
 var MemoryChunkStore = require('memory-chunk-store')
 var str = require('string-to-stream')
 var test = require('tape')
+var { ChunkStoreReadStream, ChunkStoreWriteStream } = require('../')
 
 runTests('FS', function (chunkLength) {
   return new FSChunkStore(chunkLength)
@@ -47,7 +47,7 @@ function runTests (name, Store) {
       store.put(1, Buffer.from('def'), function (err) {
         t.error(err)
 
-        var stream = ChunkStoreStream.read(store, 3, { length: 6 })
+        var stream = new ChunkStoreReadStream(store, 3, { length: 6 })
         stream.on('error', function (err) { t.fail(err) })
 
         concat(stream, function (err, buf) {
@@ -62,7 +62,7 @@ function runTests (name, Store) {
   test(name + ': writable stream', function (t) {
     var store = new Store(3)
 
-    var stream = ChunkStoreStream.write(store, 3)
+    var stream = new ChunkStoreWriteStream(store, 3)
     stream.on('error', function (err) { t.fail(err) })
 
     str('abcdef')

@@ -26,32 +26,32 @@ npm install chunk-store-stream
 ### Create a read stream
 
 ``` js
-var ChunkStoreStream = require('chunk-store-stream')
-var FSChunkStore = require('fs-chunk-store') // any chunk store will work
+const { ChunkStoreReadStream } = require('chunk-store-stream')
+const FSChunkStore = require('fs-chunk-store') // any chunk store will work
 
-var chunkLength = 3
-var store = new FSChunkStore(chunkLength)
+const chunkLength = 3
+const store = new FSChunkStore(chunkLength)
 
 // ... put some data in the store
 
-var stream = new ChunkStoreStream.read(store, chunkLength, { length: 6 })
+const stream = new ChunkStoreReadStream(store, chunkLength, { length: 6 })
 stream.pipe(process.stdout)
 ```
 
 ### Create a write stream
 
 ```js
-var ChunkStoreStream = require('chunk-store-stream')
-var FSChunkStore = require('fs-chunk-store') // any chunk store will work
-var fs = require('fs')
+const { ChunkStoreWriteStream } = require('chunk-store-stream')
+const FSChunkStore = require('fs-chunk-store') // any chunk store will work
+const fs = require('fs')
 
-var chunkLength = 3
-var store = new FSChunkStore(chunkLength)
+const chunkLength = 3
+const store = new FSChunkStore(chunkLength)
 
-var stream = new ChunkStoreStream.write(store, chunkLength)
+const stream = new ChunkStoreWriteStream(store, chunkLength)
 fs.createReadStream('file.txt').pipe(stream)
 ```
 
 ## License
 
-MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
+MIT. Copyright (c) [Feross Aboukhadijeh](https://feross.org).

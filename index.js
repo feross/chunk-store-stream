@@ -1,2 +1,4 @@
-exports.read = require('./read')
-exports.write = require('./write')
+const ChunkStoreReadStream = require('./read')
+const ChunkStoreWriteStream = require('./write')
+
+module.exports = { ChunkStoreReadStream, ChunkStoreWriteStream }
