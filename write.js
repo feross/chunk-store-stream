@@ -2,10 +2,8 @@ const BlockStream = require('block-stream2')
 const stream = require('readable-stream')
 
 class ChunkStoreWriteStream extends stream.Writable {
-  constructor (store, chunkLength, opts) {
+  constructor (store, chunkLength, opts = {}) {
     super(opts)
-
-    if (!opts) opts = {}
 
     if (!store || !store.put || !store.get) {
       throw new Error('First argument must be an abstract-chunk-store compliant store')
@@ -15,18 +13,18 @@ class ChunkStoreWriteStream extends stream.Writable {
 
     this._blockstream = new BlockStream(chunkLength, { zeroPadding: false })
 
-    this._blockstream
-      .on('data', onData)
-      .on('error', err => { this.destroy(err) })
-
     let index = 0
-    function onData (chunk) {
+    const onData = chunk => {
       if (this.destroyed) return
       store.put(index, chunk)
       index += 1
     }
 
-    this.on('finish', function () { this._blockstream.end() })
+    this._blockstream
+      .on('data', onData)
+      .on('error', err => { this.destroy(err) })
+
+    this.on('finish', this._blockstream.end)
   }
 
   _write (chunk, encoding, callback) {
