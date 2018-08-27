@@ -24,7 +24,7 @@ class ChunkStoreWriteStream extends stream.Writable {
       .on('data', onData)
       .on('error', err => { this.destroy(err) })
 
-    this.on('finish', this._blockstream.end)
+    this.on('finish', () => this._blockstream.end())
   }
 
   _write (chunk, encoding, callback) {
