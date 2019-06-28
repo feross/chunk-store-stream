@@ -41,7 +41,10 @@ runTests('Cache(Immediate(Memory)', function (chunkLength) {
 
 function runTests (name, Store) {
   test(`${name}: readable stream`, t => {
+    t.plan(4)
+
     const store = new Store(3)
+
     store.put(0, Buffer.from('abc'), err => {
       t.error(err)
       store.put(1, Buffer.from('def'), err => {
@@ -53,13 +56,14 @@ function runTests (name, Store) {
         concat(stream, (err, buf) => {
           t.error(err)
           t.deepEqual(buf, Buffer.from('abcdef'))
-          t.end()
         })
       })
     })
   })
 
   test(`${name}: writable stream`, t => {
+    t.plan(4)
+
     const store = new Store(3)
 
     const stream = new ChunkStoreWriteStream(store, 3)
@@ -74,7 +78,6 @@ function runTests (name, Store) {
           store.get(1, (err, buf) => {
             t.error(err)
             t.deepEqual(buf, Buffer.from('def'))
-            t.end()
           })
         })
       })

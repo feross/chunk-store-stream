@@ -12,23 +12,38 @@ class ChunkStoreWriteStream extends stream.Writable {
     if (!chunkLength) throw new Error('Second argument must be a chunk length')
 
     this._blockstream = new BlockStream(chunkLength, { zeroPadding: false })
+    this._outstandingPuts = 0
 
     let index = 0
     const onData = chunk => {
       if (this.destroyed) return
-      store.put(index, chunk)
+
+      this._outstandingPuts += 1
+      store.put(index, chunk, () => {
+        this._outstandingPuts -= 1
+        if (this._outstandingPuts === 0 && typeof this._finalCb === 'function') {
+          this._finalCb(null)
+          this._finalCb = null
+        }
+      })
       index += 1
     }
 
     this._blockstream
       .on('data', onData)
       .on('error', err => { this.destroy(err) })
-
-    this.on('finish', () => this._blockstream.end())
   }
 
   _write (chunk, encoding, callback) {
     this._blockstream.write(chunk, encoding, callback)
+  }
+
+  _final (cb) {
+    this._blockstream.end()
+    this._blockstream.once('end', () => {
+      if (this._outstandingPuts === 0) cb(null)
+      else this._finalCb = cb
+    })
   }
 
   destroy (err) {
