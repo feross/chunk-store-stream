@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "block-stream2": "^1.0.0",
-    "readable-stream": "^2.0.5"
+    "readable-stream": "^3.4.0"
   },
   "devDependencies": {
     "cache-chunk-store": "^3.0.0",
