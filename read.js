@@ -1,10 +1,8 @@
 const stream = require('readable-stream')
 
 class ChunkStoreReadStream extends stream.Readable {
-  constructor (store, chunkLength, opts) {
+  constructor (store, chunkLength, opts = {}) {
     super(opts)
-
-    if (!opts) opts = {}
 
     if (!store || !store.put || !store.get) {
       throw new Error('First argument must be an abstract-chunk-store compliant store')
