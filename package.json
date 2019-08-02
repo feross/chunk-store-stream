@@ -11,7 +11,7 @@
     "url": "https://github.com/feross/chunk-store-stream/issues"
   },
   "dependencies": {
-    "block-stream2": "^1.0.0",
+    "block-stream2": "^2.0.0",
     "readable-stream": "^3.4.0"
   },
   "devDependencies": {
