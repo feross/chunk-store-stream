@@ -1,7 +1,7 @@
 {
   "name": "chunk-store-stream",
   "description": "Convert an abstract-chunk-store compliant store into a readable or writable stream",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "author": {
     "name": "Feross Aboukhadijeh",
     "email": "feross@feross.org",
