@@ -22,7 +22,7 @@
     "simple-concat": "^1.0.0",
     "standard": "*",
     "string-to-stream": "^3.0.0",
-    "tape": "^4.1.0"
+    "tape": "^5.0.0"
   },
   "homepage": "https://github.com/feross/chunk-store-stream",
   "keywords": [
