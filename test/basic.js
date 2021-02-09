@@ -61,6 +61,27 @@ function runTests (name, Store) {
     })
   })
 
+  test(`${name}: readable stream with slicing`, t => {
+    t.plan(4)
+
+    const store = new Store(3)
+
+    store.put(0, Buffer.from('abc'), err => {
+      t.error(err)
+      store.put(1, Buffer.from('def'), err => {
+        t.error(err)
+
+        const stream = new ChunkStoreReadStream(store, 3, { length: 3, offset: 2 })
+        stream.on('error', err => { t.fail(err) })
+
+        concat(stream, (err, buf) => {
+          t.error(err)
+          t.deepEqual(buf, Buffer.from('cde'))
+        })
+      })
+    })
+  })
+
   test(`${name}: writable stream`, t => {
     t.plan(4)
 
@@ -78,6 +99,30 @@ function runTests (name, Store) {
           store.get(1, (err, buf) => {
             t.error(err)
             t.deepEqual(buf, Buffer.from('def'))
+          })
+        })
+      })
+  })
+
+  test(`${name}: writable stream with zero padding`, t => {
+    t.plan(4)
+
+    const store = new Store(3)
+
+    const stream = new ChunkStoreWriteStream(store, 3, {
+      zeroPadding: true
+    })
+    stream.on('error', err => { t.fail(err) })
+
+    str('abcd')
+      .pipe(stream)
+      .on('finish', () => {
+        store.get(0, (err, buf) => {
+          t.error(err)
+          t.deepEqual(buf, Buffer.from('abc'))
+          store.get(1, (err, buf) => {
+            t.error(err)
+            t.deepEqual(buf, Buffer.from('d\0\0'))
           })
         })
       })
