@@ -1,7 +1,7 @@
-# chunk-store-stream [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
+# chunk-store-stream [![ci][ci-image]][ci-url] [![npm][npm-image]][npm-url] [![downloads][downloads-image]][downloads-url] [![javascript style guide][standard-image]][standard-url]
 
-[travis-image]: https://img.shields.io/travis/feross/chunk-store-stream/master.svg
-[travis-url]: https://travis-ci.org/feross/chunk-store-stream
+[ci-image]: https://img.shields.io/github/workflow/status/feross/chunk-store-stream/ci
+[ci-url]: https://github.com/feross/chunk-store-stream/actions
 [npm-image]: https://img.shields.io/npm/v/chunk-store-stream.svg
 [npm-url]: https://npmjs.org/package/chunk-store-stream
 [downloads-image]: https://img.shields.io/npm/dm/chunk-store-stream.svg
