@@ -1,7 +1,7 @@
 const BlockStream = require('block-stream2')
-const stream = require('readable-stream')
+const { Writable } = require('streamx')
 
-class ChunkStoreWriteStream extends stream.Writable {
+class ChunkStoreWriteStream extends Writable {
   constructor (store, chunkLength, opts = {}) {
     super(opts)
 
@@ -43,8 +43,8 @@ class ChunkStoreWriteStream extends stream.Writable {
       .on('error', err => { this.destroy(err) })
   }
 
-  _write (chunk, encoding, callback) {
-    this._blockstream.write(chunk, encoding, callback)
+  _write (chunk, callback) {
+    this._blockstream.write(chunk, callback)
   }
 
   _final (cb) {
@@ -53,14 +53,6 @@ class ChunkStoreWriteStream extends stream.Writable {
       if (this._outstandingPuts === 0) cb(null)
       else this._finalCb = cb
     })
-  }
-
-  destroy (err) {
-    if (this.destroyed) return
-    this.destroyed = true
-
-    if (err) this.emit('error', err)
-    this.emit('close')
   }
 }
 
