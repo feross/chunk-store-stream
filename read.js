@@ -1,6 +1,6 @@
-const stream = require('readable-stream')
+const { Readable } = require('streamx')
 
-class ChunkStoreReadStream extends stream.Readable {
+class ChunkStoreReadStream extends Readable {
   constructor (store, chunkLength, opts = {}) {
     super(opts)
 
@@ -22,10 +22,11 @@ class ChunkStoreReadStream extends stream.Readable {
     this._consumedLength = 0
   }
 
-  _read () {
+  _read (cb) {
     const remainingLength = this._length - this._consumedLength
     if (remainingLength <= 0) {
       this.push(null)
+      cb()
     } else {
       const offset = this._chunkOffset
       const length = Math.min(remainingLength, this._chunkLength - this._chunkOffset)
@@ -38,17 +39,10 @@ class ChunkStoreReadStream extends stream.Readable {
       }, (err, chunk) => {
         if (err) return this.destroy(err)
         this.push(chunk)
+        cb()
       })
       this._index += 1
     }
-  }
-
-  destroy (err) {
-    if (this.destroyed) return
-    this.destroyed = true
-
-    if (err) this.emit('error', err)
-    this.emit('close')
   }
 }
 
